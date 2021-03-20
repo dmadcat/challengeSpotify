@@ -58,7 +58,12 @@ app.get('/api/v1/albums', async (req, res) =>{
     })
     .then(res => res.json())
     .then(json => {
-        return json.artists.items[0].id
+        try{
+            return json.artists.items[0].id
+        }catch(error){
+            console.error(error)
+            res.send('Invalid query')
+        }
     } );  
 
     const Id = await spotifyArtistId
