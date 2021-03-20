@@ -6,7 +6,7 @@ Get band or artist's albums from spotify.
 * Enviroment Variables
 
 ## Installation
-### Step 1 (intall package.json dependencies)
+### Step 1 (install package.json dependencies)
 From inside your app directory (i.e. where package.json is located) will install the dependencies for your app, using: "npm install"
 
 ### Step 2 (set enviroment variables)
