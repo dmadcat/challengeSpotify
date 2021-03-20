@@ -2,8 +2,8 @@
 Get band or artist's albums from spotify.
 
 ## Demo on Heroku
-```https://challenge-spotify.herokuapp.com/api/v1/albums?q=$BAND-NAME```
-$BAND-NAME should be replaced by the name of the band that you are looking for.
+```https://challenge-spotify.herokuapp.com/api/v1/albums?q=**```
+** should be replaced by the name of the band that you are looking for.
 
 ## Requirements
 * NodeJs v14.15.3 or higher
