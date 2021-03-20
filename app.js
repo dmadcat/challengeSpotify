@@ -111,8 +111,14 @@ app.get('/api/v1/albums', async (req, res) =>{
     console.log(allAlbums)
     res.send(allAlbums)
 })
+
+app.get('/', async (req, res) =>{
+    res.send("Try this route /api/v1/albums")
+})
  
 
+const port = process.env.PORT || 3000;
 
-
-app.listen(3000)
+app.listen(port, ()=>{
+    console.log(`Serving on port ${port}`)
+})
