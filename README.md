@@ -10,7 +10,7 @@ Get band or artist's albums from spotify.
 From inside your app directory (i.e. where package.json is located) will install the dependencies for your app, using: "npm install"
 
 ### Step 2 (set enviroment variables)
-You will need a client id and a client secret code from https://developer.spotify.com/dashboard. You will need to log in it and creat an app for get both codes.
+You will need a client id and a client secret code from https://developer.spotify.com/dashboard. You will need to log in it and create an app for get both codes.
 
 | Variable        | Required           | Default  | Example |
 | --------------- |--------------------| ---------| --------|
