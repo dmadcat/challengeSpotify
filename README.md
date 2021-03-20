@@ -1,5 +1,5 @@
 # challengeSpotify
-Get bands and artist's albums from spotify
+Get band or artist's albums from spotify.
 
 ## Requirements
 * NodeJs v14.15.3 or higher
@@ -19,4 +19,4 @@ You will need a client id and a client secret code from https://developer.spotif
 
 ## Usage
 Run the program
-To run the program you can use the console from your app directory, using the command: "node app.js", "nodemon app.js" or "npm start". Then go to your browser and use this route "http://localhost:3000/api/v1/albums?q=`band-or-artist-name`"
+To run the program you can use the console from your app directory, using the command: "node app.js", "nodemon app.js" or "npm start". Then go to your browser and use this route: "http://localhost:3000/api/v1/albums?q=$BAND-NAME" $BAND-NAME should be replaced by the name of the band that you are looking for.
