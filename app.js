@@ -11,6 +11,9 @@ require('dotenv').config();
 const clientId=process.env.CLIENT_ID;
 const clientSecret=process.env.CLIENT_SECRET;
 
+
+
+
 // use ejs-locals for all ejs templates:
 app.engine('ejs', ejsMate);
 
@@ -38,9 +41,8 @@ app.get('/api/v1/albums', async (req, res) =>{
         res.render('error', { error})
     }
 
-    let artist = req.query.q;
-
-    /* console.log(artist) */
+    /* let artist = req.query.q; */
+    let artist = encodeURIComponent(req.query.q);
 
     // private methods
     const _getToken = async () => {
