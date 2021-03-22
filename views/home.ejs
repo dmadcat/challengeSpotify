@@ -1,0 +1,17 @@
+<% layout('layouts/boilerplate')%>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form class="row g-3 needs-validation" action="/api/v1/albums" method="GET" novalidate>
+                <div class="mb-3">
+                    <label for="artist" class="form-label">Enter an Artist</label>
+                    <input type="text" class="form-control" id="artist" name="q" placeholder="Type to search..." required>
+                    <!-- <div class="valid-feedback">
+                        Looks good!
+                    </div> -->
+                    
+                </div>      
+            </form>
+        </div>
+    </div>
+</div>

@@ -2,12 +2,17 @@ const express = require('express')
 const app = express()
 const path = require('path');
 
+const ejsMate = require('ejs-mate');
 const fetch = require('node-fetch');
 var btoa = require('btoa');
-require('dotenv').config()
+require('dotenv').config();
+
 
 const clientId=process.env.CLIENT_ID;
 const clientSecret=process.env.CLIENT_SECRET;
+
+// use ejs-locals for all ejs templates:
+app.engine('ejs', ejsMate);
 
 //path
 app.use(express.static(path.join(__dirname, 'public')))
@@ -21,11 +26,20 @@ app.set('views', path.join(__dirname, '/views'))
 //routes
 app.get('/api/v1/albums', async (req, res) =>{
 
-    if(!req.query.q){
-        res.send('No search query')
+    /* if(!req.query.q){
+        const message = 'No search query'
+        /* res.send('No search query')
+        res.render('error', { message})
         return
+    } */
+    try{
+        console.log(req.query.q)
+    }catch(error){
+        res.render('error', { error})
     }
+
     let artist = req.query.q;
+
     /* console.log(artist) */
 
     // private methods
@@ -44,11 +58,10 @@ app.get('/api/v1/albums', async (req, res) =>{
         return data.access_token;
     }
     const token = await _getToken();
-    /* console.log(token) */
-
+    /* console.log(token) */ 
 
     
-    const spotifyArtistId = fetch(`https://api.spotify.com/v1/search?q=${artist}&type=artist`, {
+    const getSpotifyArtist = fetch(`https://api.spotify.com/v1/search?q=${artist}&type=artist`, {
         method: 'GET',
         headers: {
             'Accept':'application/json',
@@ -59,14 +72,23 @@ app.get('/api/v1/albums', async (req, res) =>{
     .then(res => res.json())
     .then(json => {
         try{
-            return json.artists.items[0].id
-        }catch(error){
-            console.error(error)
-            res.send('Invalid query')
-        }
-    } );  
+            console.log(json.artists.items[0].id)
+            return json
 
-    const Id = await spotifyArtistId
+        }catch(error){
+            console.error(error);
+            /* res.send('Invalid query') */
+            const message = 'Invalid query'
+            res.render('error', { error})
+        }
+    });
+
+    
+    const spotifyArtist = await getSpotifyArtist
+    const Id = spotifyArtist.artists.items[0].id
+    const Name = spotifyArtist.artists.items[0].name
+
+    
 
     const spotifyAlbums = fetch(`https://api.spotify.com/v1/artists/${Id}/albums?limit=50`, {
     method: 'GET',
@@ -109,11 +131,21 @@ app.get('/api/v1/albums', async (req, res) =>{
         }
     }
     console.log(allAlbums)
-    res.send(allAlbums)
+    /* res.send(allAlbums) */
+    res.render('albums', { allAlbums, Name})
 })
 
+
+
+
 app.get('/', async (req, res) =>{
-    res.send("Try this route /api/v1/albums")
+
+    res.render('home')
+    /* res.send("Try this route /api/v1/albums") */
+})
+
+app.all('*', (req, res, next) => {
+    next(new ExpressError('Page Not Found', 404))
 })
  
 
