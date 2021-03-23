@@ -3,9 +3,10 @@ const artistChooser = (uncodeArtist,spotifyArtist) =>{
     let f=0;
     let i=0;
 
-    for(let item of spotifyArtist.artists.items){  /* i = 0; i < 10; i++ */
+    for(let item of spotifyArtist.artists.items){
         if(uncodeArtist.toLowerCase()==item.name.toLowerCase()){
             f=i;
+            return f
         }
         i++
     }
