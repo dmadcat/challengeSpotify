@@ -41,10 +41,10 @@ app.get('/api/v1/albums', async (req, res) =>{
         res.render('error', { error})
     }
 
-    /* let artist = req.query.q; */
+    let unencodeArtist = req.query.q;
     let artist = encodeURIComponent(req.query.q);
 
-    // private methods
+    //token getter private methods
     const _getToken = async () => {
 
         const result = await fetch('https://accounts.spotify.com/api/token', {
@@ -62,7 +62,7 @@ app.get('/api/v1/albums', async (req, res) =>{
     const token = await _getToken();
     /* console.log(token) */ 
 
-    
+    //artist's finder
     const getSpotifyArtist = fetch(`https://api.spotify.com/v1/search?q=${artist}&type=artist`, {
         method: 'GET',
         headers: {
@@ -84,14 +84,24 @@ app.get('/api/v1/albums', async (req, res) =>{
             res.render('error', { error})
         }
     });
-
-    
-    const spotifyArtist = await getSpotifyArtist
-    const Id = spotifyArtist.artists.items[0].id
-    const Name = spotifyArtist.artists.items[0].name
-
     
 
+
+    //correct artist's chooser
+    const spotifyArtist = await getSpotifyArtist    
+    let f=0;
+    for(let i = 0; i < 10; i++){
+        if(unencodeArtist.toLowerCase()==spotifyArtist.artists.items[i].name.toLowerCase()){
+            f=i;
+        }
+    }    
+    const Id = spotifyArtist.artists.items[f].id
+    const Name = spotifyArtist.artists.items[f].name
+
+
+
+    
+    //album's finder
     const spotifyAlbums = fetch(`https://api.spotify.com/v1/artists/${Id}/albums?limit=50`, {
     method: 'GET',
     headers: {
@@ -109,6 +119,7 @@ app.get('/api/v1/albums', async (req, res) =>{
     /* console.log(albums) */
 
     
+    //json maker
     let sameDate = 'none';
     let sameName = 'none';
     let allAlbums = [];
@@ -132,6 +143,11 @@ app.get('/api/v1/albums', async (req, res) =>{
             sameName = item.name;
         }
     }
+
+
+
+
+
     console.log(allAlbums)
     /* res.send(allAlbums) */
     res.render('albums', { allAlbums, Name})
