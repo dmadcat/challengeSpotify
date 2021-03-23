@@ -35,9 +35,10 @@ app.get('/api/v1/albums',catchAsync(async (req, res) =>{
 
     //artist's finder
     const spotifyArtist = await spotiApi.getSpotifyArtist(token,artist)
+    
 
     //correct artist's chooser
-    const artistSelected = complement.artistChooser(uncodeArtist,spotifyArtist)    
+    const artistSelected = complement.artistChooser(uncodeArtist,spotifyArtist)
     const Id = spotifyArtist.artists.items[artistSelected].id
     const Name = spotifyArtist.artists.items[artistSelected].name
 

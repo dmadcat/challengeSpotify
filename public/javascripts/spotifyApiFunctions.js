@@ -24,7 +24,6 @@ const _getToken = async () => {
 
 
 //artist's finder
-
 const getSpotifyArtist = async (token,artist) => {
     
     const result = fetch(`https://api.spotify.com/v1/search?q=${artist}&type=artist`, {
@@ -43,8 +42,6 @@ const getSpotifyArtist = async (token,artist) => {
     return data
 
 }
-
-
 
 
 

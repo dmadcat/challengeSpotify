@@ -1,10 +1,13 @@
 //correct artist's chooser
 const artistChooser = (uncodeArtist,spotifyArtist) =>{
     let f=0;
-    for(let i = 0; i < 10; i++){
-        if(uncodeArtist.toLowerCase()==spotifyArtist.artists.items[i].name.toLowerCase()){
+    let i=0;
+
+    for(let item of spotifyArtist.artists.items){  /* i = 0; i < 10; i++ */
+        if(uncodeArtist.toLowerCase()==item.name.toLowerCase()){
             f=i;
         }
+        i++
     }
     return f
 }
